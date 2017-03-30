@@ -48,6 +48,7 @@ function ready() {
         tagsEl = tags.querySelectorAll('.fsort-tag'),
         container = document.querySelector('.fsort-container'),
         el = container.querySelectorAll('.fsort-item');
+    var posLeft = 0;
     for (var i = 0; i < tagsEl.length; i++) {
         tagsEl[i].addEventListener('click', function () {
             if (!this.classList.contains('active')) {
@@ -66,7 +67,18 @@ function ready() {
                     number : el[j].getAttribute('data-slug')
                 };*/
             }
-            console.log(elTags);
+            for (var a = 0; a < elTags.length; a++){
+                var separatedTags = elTags[a].split(',');
+                for (var b = 0; b < separatedTags.length; b++){
+                    if(separatedTags[b] == curTag){
+                        el[a].classList.add('show');
+                        el[a].style.left = posLeft+'px';
+                        console.log(posLeft);
+                        posLeft += el[a].offsetWidth;
+
+                    }
+                }
+            }
         });
     }
 
