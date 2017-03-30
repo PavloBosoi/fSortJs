@@ -49,46 +49,45 @@ function ready() {
         container = document.querySelector('.fsort-container'),
         el = container.querySelectorAll('.fsort-item');
     var posLeft = 0;
+    var curTag = [];
     for (var i = 0; i < tagsEl.length; i++) {
         tagsEl[i].addEventListener('click', function () {
             if (!this.classList.contains('active')) {
                 this.classList.add('active');
+                curTag.push(this.getAttribute('data-filter'));
+                console.log('curen: '+curTag);
             }
             else {
                 this.classList.remove('active');
+                curTag.splice(curTag.indexOf(this.getAttribute('data-filter')), 1);
+                console.log('curen: '+curTag);
             }
-            var curTag = this.getAttribute('data-filter');
             var elTags = [];
             for (var j = 0; j < el.length; j++){
                 elTags.push(el[j].getAttribute('data-slug'));
-                find(elTags,curTag);
-                console.log(find(elTags,curTag));
                 /*elTags = {
                     number : el[j].getAttribute('data-slug')
                 };*/
             }
+            console.log('el tags: '+elTags);
             for (var a = 0; a < elTags.length; a++){
                 var separatedTags = elTags[a].split(',');
                 for (var b = 0; b < separatedTags.length; b++){
-                    if(separatedTags[b] == curTag){
-                        el[a].classList.add('show');
-                        el[a].style.left = posLeft+'px';
-                        console.log(posLeft);
-                        posLeft += el[a].offsetWidth;
+                    for(var c = 0; c < curTag.length; c++){
+                        console.log(separatedTags[b],curTag[c]);
+                        if(separatedTags[b] == curTag[c] && !el[a].classList.contains('show')){
+                            el[a].classList.add('show');
+                            el[a].style.left = posLeft+'px';
+                            posLeft += el[a].offsetWidth;
 
+                        }
+                        else{
+                            //el[a].classList.remove('show');
+                        }
                     }
                 }
             }
         });
-    }
-
-    function find(array, value) {
-
-        for (var i = 0; i < array.length; i++) {
-            if (array[i] == value) return i;
-        }
-
-        return -1;
     }
 
 
