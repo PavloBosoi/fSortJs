@@ -60,12 +60,23 @@ function ready() {
             var elTags = [];
             for (var j = 0; j < el.length; j++){
                 elTags.push(el[j].getAttribute('data-slug'));
+                find(elTags,curTag);
+                console.log(find(elTags,curTag));
                 /*elTags = {
                     number : el[j].getAttribute('data-slug')
                 };*/
             }
             console.log(elTags);
         });
+    }
+
+    function find(array, value) {
+
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] == value) return i;
+        }
+
+        return -1;
     }
 
 
